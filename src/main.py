@@ -58,23 +58,25 @@ fish_to_wiki  = {
 
 MODEL_NAME = 'efficientnet'
 
-# @st.cache()
+@st.cache()
 def augment_model(efficientnet):
     efficientnet.classifier[-1] = nn.Linear(in_features=1792, out_features=len(label_map), bias=True)
     return efficientnet
 
 with st.spinner('Model is being loaded..'):
-    PATH = 'models/efficientnet_10_25_full.pt'
+    PATH = Path(__file__).resolve().parent.parent/'models'/'efficientnet_10_25_full.pt'
+    print(PATH)
     # Use cuda to enable gpu usage for pytorch
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cpu")
     if MODEL_NAME in 'efficientnet':
         efficientnet = torch.hub.load('NVIDIA/DeepLearningExamples:torchhub', 'nvidia_efficientnet_b4', pretrained=True)
 
         model_ft = augment_model(efficientnet)
         model_ft.load_state_dict(torch.load(PATH,map_location=device))
-    print(torch.__version__)
-
-    # model_ft = torch.load(PATH,map_location=device)
+        
+    else:
+        model_ft = torch.load(PATH,map_location=device)
 
 st.write("""
          # Endangered Fish Classification
@@ -138,10 +140,10 @@ else:
         df.iloc[count, 0] = f'<a href="{fish_to_wiki[x]}" target="_blank">{predicted_to_actual_dict[label_map[x]].title()}</a>'
         df.iloc[count, 1] = np.format_float_positional(i, precision=8)
 
-    st.write(df.to_html(escape=False, justify = 'left'), unsafe_allow_html=True)
+    st.write(df.to_html(escape=False), unsafe_allow_html=True)
     if predicted_fish not in ['OTHER', 'Nof']:
 
-        PATH_fish = Path(__file__).resolve().parent.parent/'data'/'fishes_ref'/ (predicted_fish + '.jpg')
+        PATH_fish = Path(__file__).resolve().parent/'data'/'fishes_ref'/ (predicted_fish + '.jpg')
         st.title('Here is a sample image of ' + predicted_to_actual_dict[predicted_fish])
         reference_image = Image.open(PATH_fish)
         st.image(reference_image)
