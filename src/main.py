@@ -64,7 +64,7 @@ MODEL_NAME = 'efficientnet'
 #     return efficientnet
 
 with st.spinner('Model is being loaded..'):
-    PATH = Path(__file__).resolve().parent.parent/'models'/'efficientnet_10_25_full.pt'
+    PATH = 'models'/'efficientnet_10_25_full.pt'
     # Use cuda to enable gpu usage for pytorch
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # if MODEL_NAME in 'efficientnet':

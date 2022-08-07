@@ -1,2 +1,8 @@
 # Remove cache 
 *.pyc
+*.jpg
+
+!data/fishes_ref
+
+*.pt
+!efficientnet_10_25_full.ptc
