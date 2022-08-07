@@ -6,4 +6,4 @@ data/*.jpg
 *.pyc
 
 # Remove model data
-*.pt
+VGG16_v3_25_0.672.pt
