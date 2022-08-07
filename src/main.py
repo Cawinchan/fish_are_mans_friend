@@ -72,8 +72,9 @@ with st.spinner('Model is being loaded..'):
 
     #     model_ft = augment_model(efficientnet)
     #     model_ft.load_state_dict(torch.load(PATH,map_location=device))
+    print(torch.__version__)
 
-    model_ft = torch.load(PATH,map_location=device)
+    # model_ft = torch.load(PATH,map_location=device)
 
 st.write("""
          # Endangered Fish Classification
