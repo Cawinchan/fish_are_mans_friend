@@ -76,7 +76,6 @@ with st.spinner('Model is being loaded..'):
     #     model_ft.load_state_dict(torch.load(PATH,map_location=device))
         
     # else:
-    st.write(torch.cuda.is_available())
     model_ft = torch.load(PATH,map_location=device)
 
 st.write("""
