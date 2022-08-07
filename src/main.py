@@ -68,7 +68,7 @@ with st.spinner('Model is being loaded..'):
     st.write(PATH)
     # Use cuda to enable gpu usage for pytorch
     # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    device = torch.device("cpu")
+    # device = torch.device("cpu")
     # if MODEL_NAME in 'efficientnet':
     #     efficientnet = torch.hub.load('NVIDIA/DeepLearningExamples:torchhub', 'nvidia_efficientnet_b4', pretrained=True)
 
@@ -76,7 +76,8 @@ with st.spinner('Model is being loaded..'):
     #     model_ft.load_state_dict(torch.load(PATH,map_location=device))
         
     # else:
-    model_ft = torch.load(PATH,map_location=device)
+    st.write(torch.cuda.is_available())
+    model_ft = torch.load(PATH)
 
 st.write("""
          # Endangered Fish Classification
